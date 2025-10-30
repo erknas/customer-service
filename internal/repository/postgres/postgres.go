@@ -17,23 +17,30 @@ func New(pool *pgxpool.Pool) *postgresRepository {
 	}
 }
 
-func (p *postgresRepository) InsertCustomer(ctx context.Context, customer *models.Customer) (*models.Customer, error) {
-	const query = `INSERT INTO customers(username, fullname) VALUES ($1, $2) RETURNING id, created_at`
+func (p *postgresRepository) InsertCustomer(ctx context.Context, customer models.Customer) (models.Customer, error) {
+	const query = `
+	INSERT INTO customers(user_name, full_name, city, birth_date)
+	VALUES ($1, $2, $3, $4)
+	RETURNING id
+	`
 
-	result := &models.Customer{
-		Username: customer.Username,
-		Fullname: customer.Fullname,
+	result := models.Customer{
+		Username:  customer.Username,
+		Fullname:  customer.Fullname,
+		City:      customer.City,
+		BirthDate: customer.BirthDate,
 	}
 
 	if err := p.pool.QueryRow(
 		ctx, query,
 		customer.Username,
 		customer.Fullname,
+		customer.City,
+		customer.BirthDate,
 	).Scan(
 		&result.ID,
-		&result.CreatedAt,
 	); err != nil {
-		return nil, err
+		return models.Customer{}, err
 	}
 
 	return result, nil
