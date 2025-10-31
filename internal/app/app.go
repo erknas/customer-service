@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"net/http"
 	"os"
@@ -43,8 +44,7 @@ func Run(cfg *config.Config, logger *zap.Logger) {
 }
 
 func runGRPC(cfg *config.Config, logger *zap.Logger, customerServer customer.CustomerServiceServer) {
-	port := ":" + cfg.GRPC.Port
-
+	port := fmt.Sprintf(":%s", cfg.GRPC.Port)
 	ln, err := net.Listen("tcp", port)
 	if err != nil {
 		logger.Error("falied to listen", zap.Error(err), zap.String("port", port))
@@ -52,7 +52,6 @@ func runGRPC(cfg *config.Config, logger *zap.Logger, customerServer customer.Cus
 	}
 
 	s := grpc.NewServer()
-
 	reflection.Register(s)
 	customer.RegisterCustomerServiceServer(s, customerServer)
 
@@ -67,14 +66,14 @@ func runREST(ctx context.Context, cfg *config.Config, logger *zap.Logger) {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-	addr := "localhost" + cfg.GRPC.Port
-
+	addr := fmt.Sprintf("localhost:%s", cfg.GRPC.Port)
 	if err := customer.RegisterCustomerServiceHandlerFromEndpoint(ctx, mux, addr, opts); err != nil {
 		logger.Error("failed to register grpc gateway", zap.Error(err))
 		os.Exit(1)
 	}
 
-	gwPort := ":" + cfg.GRPC.GatewayPort
+	gwPort := fmt.Sprintf(":%s", cfg.GRPC.GatewayPort)
+
 	logger.Info("starting gateway on port", zap.String("port", gwPort))
 
 	if err := http.ListenAndServe(gwPort, mux); err != nil {
