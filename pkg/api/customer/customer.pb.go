@@ -194,11 +194,7 @@ func (x *CreateCustomerRequest) GetBirthDate() string {
 
 type CreateCustomerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserName      string                 `protobuf:"bytes,2,opt,name=user_name,json=userName,proto3" json:"user_name,omitempty"`
-	FullName      string                 `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
-	City          string                 `protobuf:"bytes,4,opt,name=city,proto3" json:"city,omitempty"`
-	BirthDate     string                 `protobuf:"bytes,5,opt,name=birth_date,json=birthDate,proto3" json:"birth_date,omitempty"`
+	Customer      *Customer              `protobuf:"bytes,1,opt,name=customer,proto3" json:"customer,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -233,39 +229,219 @@ func (*CreateCustomerResponse) Descriptor() ([]byte, []int) {
 	return file_api_customer_customer_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *CreateCustomerResponse) GetId() string {
+func (x *CreateCustomerResponse) GetCustomer() *Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
+}
+
+type GetCustomerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCustomerRequest) Reset() {
+	*x = GetCustomerRequest{}
+	mi := &file_api_customer_customer_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCustomerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCustomerRequest) ProtoMessage() {}
+
+func (x *GetCustomerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_customer_customer_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCustomerRequest.ProtoReflect.Descriptor instead.
+func (*GetCustomerRequest) Descriptor() ([]byte, []int) {
+	return file_api_customer_customer_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetCustomerRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *CreateCustomerResponse) GetUserName() string {
+type GetCustomerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Customer      *Customer              `protobuf:"bytes,1,opt,name=customer,proto3" json:"customer,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCustomerResponse) Reset() {
+	*x = GetCustomerResponse{}
+	mi := &file_api_customer_customer_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCustomerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCustomerResponse) ProtoMessage() {}
+
+func (x *GetCustomerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_customer_customer_proto_msgTypes[4]
 	if x != nil {
-		return x.UserName
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCustomerResponse.ProtoReflect.Descriptor instead.
+func (*GetCustomerResponse) Descriptor() ([]byte, []int) {
+	return file_api_customer_customer_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetCustomerResponse) GetCustomer() *Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
+}
+
+type UpdateCustomerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserName      *string                `protobuf:"bytes,2,opt,name=user_name,json=userName,proto3,oneof" json:"user_name,omitempty"`
+	FullName      *string                `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3,oneof" json:"full_name,omitempty"`
+	City          *string                `protobuf:"bytes,4,opt,name=city,proto3,oneof" json:"city,omitempty"`
+	BirthDate     *string                `protobuf:"bytes,5,opt,name=birth_date,json=birthDate,proto3,oneof" json:"birth_date,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCustomerRequest) Reset() {
+	*x = UpdateCustomerRequest{}
+	mi := &file_api_customer_customer_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCustomerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCustomerRequest) ProtoMessage() {}
+
+func (x *UpdateCustomerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_customer_customer_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCustomerRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCustomerRequest) Descriptor() ([]byte, []int) {
+	return file_api_customer_customer_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *UpdateCustomerRequest) GetId() string {
+	if x != nil {
+		return x.Id
 	}
 	return ""
 }
 
-func (x *CreateCustomerResponse) GetFullName() string {
-	if x != nil {
-		return x.FullName
+func (x *UpdateCustomerRequest) GetUserName() string {
+	if x != nil && x.UserName != nil {
+		return *x.UserName
 	}
 	return ""
 }
 
-func (x *CreateCustomerResponse) GetCity() string {
-	if x != nil {
-		return x.City
+func (x *UpdateCustomerRequest) GetFullName() string {
+	if x != nil && x.FullName != nil {
+		return *x.FullName
 	}
 	return ""
 }
 
-func (x *CreateCustomerResponse) GetBirthDate() string {
-	if x != nil {
-		return x.BirthDate
+func (x *UpdateCustomerRequest) GetCity() string {
+	if x != nil && x.City != nil {
+		return *x.City
 	}
 	return ""
+}
+
+func (x *UpdateCustomerRequest) GetBirthDate() string {
+	if x != nil && x.BirthDate != nil {
+		return *x.BirthDate
+	}
+	return ""
+}
+
+type UpdateCustomerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Customer      *Customer              `protobuf:"bytes,1,opt,name=customer,proto3" json:"customer,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCustomerResponse) Reset() {
+	*x = UpdateCustomerResponse{}
+	mi := &file_api_customer_customer_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCustomerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCustomerResponse) ProtoMessage() {}
+
+func (x *UpdateCustomerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_customer_customer_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCustomerResponse.ProtoReflect.Descriptor instead.
+func (*UpdateCustomerResponse) Descriptor() ([]byte, []int) {
+	return file_api_customer_customer_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UpdateCustomerResponse) GetCustomer() *Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
 }
 
 var File_api_customer_customer_proto protoreflect.FileDescriptor
@@ -292,16 +468,34 @@ const file_api_customer_customer_proto_rawDesc = "" +
 	"\n" +
 	"birth_date\x18\x04 \x01(\tB'\xfaB$r\"\x10\n" +
 	"\x18\n" +
-	"2\x1c^[0-9]{4}-[0-9]{2}-[0-9]{2}$R\tbirthDate\"\x95\x01\n" +
-	"\x16CreateCustomerResponse\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
-	"\tuser_name\x18\x02 \x01(\tR\buserName\x12\x1b\n" +
-	"\tfull_name\x18\x03 \x01(\tR\bfullName\x12\x12\n" +
-	"\x04city\x18\x04 \x01(\tR\x04city\x12\x1d\n" +
+	"2\x1c^[0-9]{4}-[0-9]{2}-[0-9]{2}$R\tbirthDate\"T\n" +
+	"\x16CreateCustomerResponse\x12:\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x1e.customer.service.api.CustomerR\bcustomer\"o\n" +
+	"\x12GetCustomerRequest\x12Y\n" +
+	"\x02id\x18\x01 \x01(\tBI\xfaBFrD\x10$\x18$2>^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$R\x02id\"Q\n" +
+	"\x13GetCustomerResponse\x12:\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x1e.customer.service.api.CustomerR\bcustomer\"\x86\x03\n" +
+	"\x15UpdateCustomerRequest\x12Y\n" +
+	"\x02id\x18\x01 \x01(\tBI\xfaBFrD\x10$\x18$2>^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$R\x02id\x12?\n" +
+	"\tuser_name\x18\x02 \x01(\tB\x1d\xfaB\x1ar\x18\x10\x03\x1822\x0f^[a-zA-Z0-9_]+$\xd0\x01\x01H\x00R\buserName\x88\x01\x01\x12,\n" +
+	"\tfull_name\x18\x03 \x01(\tB\n" +
+	"\xfaB\ar\x05\x18d\xd0\x01\x01H\x01R\bfullName\x88\x01\x01\x12#\n" +
+	"\x04city\x18\x04 \x01(\tB\n" +
+	"\xfaB\ar\x05\x18d\xd0\x01\x01H\x02R\x04city\x88\x01\x01\x12J\n" +
 	"\n" +
-	"birth_date\x18\x05 \x01(\tR\tbirthDate2\x9c\x01\n" +
+	"birth_date\x18\x05 \x01(\tB&\xfaB#r!2\x1c^[0-9]{4}-[0-9]{2}-[0-9]{2}$\xd0\x01\x01H\x03R\tbirthDate\x88\x01\x01B\f\n" +
+	"\n" +
+	"_user_nameB\f\n" +
+	"\n" +
+	"_full_nameB\a\n" +
+	"\x05_cityB\r\n" +
+	"\v_birth_date\"T\n" +
+	"\x16UpdateCustomerResponse\x12:\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x1e.customer.service.api.CustomerR\bcustomer2\xb3\x03\n" +
 	"\x0fCustomerService\x12\x88\x01\n" +
-	"\x0eCreateCustomer\x12+.customer.service.api.CreateCustomerRequest\x1a,.customer.service.api.CreateCustomerResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/api/v1/registerB5Z3github.com/erknas/customer-service/pkg/api/customerb\x06proto3"
+	"\x0eCreateCustomer\x12+.customer.service.api.CreateCustomerRequest\x1a,.customer.service.api.CreateCustomerResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/api/v1/register\x12\x83\x01\n" +
+	"\vGetCustomer\x12(.customer.service.api.GetCustomerRequest\x1a).customer.service.api.GetCustomerResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/api/v1/me/profile/{id}\x12\x8e\x01\n" +
+	"\x0eUpdateCustomer\x12+.customer.service.api.UpdateCustomerRequest\x1a,.customer.service.api.UpdateCustomerResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\x1a\x16/api/v1/me/update/{id}B5Z3github.com/erknas/customer-service/pkg/api/customerb\x06proto3"
 
 var (
 	file_api_customer_customer_proto_rawDescOnce sync.Once
@@ -315,23 +509,34 @@ func file_api_customer_customer_proto_rawDescGZIP() []byte {
 	return file_api_customer_customer_proto_rawDescData
 }
 
-var file_api_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_api_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_api_customer_customer_proto_goTypes = []any{
 	(*Customer)(nil),               // 0: customer.service.api.Customer
 	(*CreateCustomerRequest)(nil),  // 1: customer.service.api.CreateCustomerRequest
 	(*CreateCustomerResponse)(nil), // 2: customer.service.api.CreateCustomerResponse
-	(*timestamppb.Timestamp)(nil),  // 3: google.protobuf.Timestamp
+	(*GetCustomerRequest)(nil),     // 3: customer.service.api.GetCustomerRequest
+	(*GetCustomerResponse)(nil),    // 4: customer.service.api.GetCustomerResponse
+	(*UpdateCustomerRequest)(nil),  // 5: customer.service.api.UpdateCustomerRequest
+	(*UpdateCustomerResponse)(nil), // 6: customer.service.api.UpdateCustomerResponse
+	(*timestamppb.Timestamp)(nil),  // 7: google.protobuf.Timestamp
 }
 var file_api_customer_customer_proto_depIdxs = []int32{
-	3, // 0: customer.service.api.Customer.created_at:type_name -> google.protobuf.Timestamp
-	3, // 1: customer.service.api.Customer.updated_at:type_name -> google.protobuf.Timestamp
-	1, // 2: customer.service.api.CustomerService.CreateCustomer:input_type -> customer.service.api.CreateCustomerRequest
-	2, // 3: customer.service.api.CustomerService.CreateCustomer:output_type -> customer.service.api.CreateCustomerResponse
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	7, // 0: customer.service.api.Customer.created_at:type_name -> google.protobuf.Timestamp
+	7, // 1: customer.service.api.Customer.updated_at:type_name -> google.protobuf.Timestamp
+	0, // 2: customer.service.api.CreateCustomerResponse.customer:type_name -> customer.service.api.Customer
+	0, // 3: customer.service.api.GetCustomerResponse.customer:type_name -> customer.service.api.Customer
+	0, // 4: customer.service.api.UpdateCustomerResponse.customer:type_name -> customer.service.api.Customer
+	1, // 5: customer.service.api.CustomerService.CreateCustomer:input_type -> customer.service.api.CreateCustomerRequest
+	3, // 6: customer.service.api.CustomerService.GetCustomer:input_type -> customer.service.api.GetCustomerRequest
+	5, // 7: customer.service.api.CustomerService.UpdateCustomer:input_type -> customer.service.api.UpdateCustomerRequest
+	2, // 8: customer.service.api.CustomerService.CreateCustomer:output_type -> customer.service.api.CreateCustomerResponse
+	4, // 9: customer.service.api.CustomerService.GetCustomer:output_type -> customer.service.api.GetCustomerResponse
+	6, // 10: customer.service.api.CustomerService.UpdateCustomer:output_type -> customer.service.api.UpdateCustomerResponse
+	8, // [8:11] is the sub-list for method output_type
+	5, // [5:8] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_api_customer_customer_proto_init() }
@@ -339,13 +544,14 @@ func file_api_customer_customer_proto_init() {
 	if File_api_customer_customer_proto != nil {
 		return
 	}
+	file_api_customer_customer_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_customer_customer_proto_rawDesc), len(file_api_customer_customer_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

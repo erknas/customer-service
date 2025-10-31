@@ -399,15 +399,34 @@ func (m *CreateCustomerResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
-
-	// no validation rules for UserName
-
-	// no validation rules for FullName
-
-	// no validation rules for City
-
-	// no validation rules for BirthDate
+	if all {
+		switch v := interface{}(m.GetCustomer()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateCustomerResponseValidationError{
+					field:  "Customer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateCustomerResponseValidationError{
+					field:  "Customer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCustomer()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateCustomerResponseValidationError{
+				field:  "Customer",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return CreateCustomerResponseMultiError(errors)
@@ -488,3 +507,610 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateCustomerResponseValidationError{}
+
+// Validate checks the field values on GetCustomerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetCustomerRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCustomerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCustomerRequestMultiError, or nil if none found.
+func (m *GetCustomerRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCustomerRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) != 36 {
+		err := GetCustomerRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 36 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if !_GetCustomerRequest_Id_Pattern.MatchString(m.GetId()) {
+		err := GetCustomerRequestValidationError{
+			field:  "Id",
+			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetCustomerRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCustomerRequestMultiError is an error wrapping multiple validation errors
+// returned by GetCustomerRequest.ValidateAll() if the designated constraints
+// aren't met.
+type GetCustomerRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCustomerRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCustomerRequestMultiError) AllErrors() []error { return m }
+
+// GetCustomerRequestValidationError is the validation error returned by
+// GetCustomerRequest.Validate if the designated constraints aren't met.
+type GetCustomerRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCustomerRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCustomerRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCustomerRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCustomerRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCustomerRequestValidationError) ErrorName() string {
+	return "GetCustomerRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCustomerRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCustomerRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCustomerRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCustomerRequestValidationError{}
+
+var _GetCustomerRequest_Id_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+
+// Validate checks the field values on GetCustomerResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetCustomerResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCustomerResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCustomerResponseMultiError, or nil if none found.
+func (m *GetCustomerResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCustomerResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCustomer()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetCustomerResponseValidationError{
+					field:  "Customer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetCustomerResponseValidationError{
+					field:  "Customer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCustomer()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetCustomerResponseValidationError{
+				field:  "Customer",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetCustomerResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCustomerResponseMultiError is an error wrapping multiple validation
+// errors returned by GetCustomerResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetCustomerResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCustomerResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCustomerResponseMultiError) AllErrors() []error { return m }
+
+// GetCustomerResponseValidationError is the validation error returned by
+// GetCustomerResponse.Validate if the designated constraints aren't met.
+type GetCustomerResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCustomerResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCustomerResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCustomerResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCustomerResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCustomerResponseValidationError) ErrorName() string {
+	return "GetCustomerResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCustomerResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCustomerResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCustomerResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCustomerResponseValidationError{}
+
+// Validate checks the field values on UpdateCustomerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateCustomerRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateCustomerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateCustomerRequestMultiError, or nil if none found.
+func (m *UpdateCustomerRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateCustomerRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) != 36 {
+		err := UpdateCustomerRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 36 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if !_UpdateCustomerRequest_Id_Pattern.MatchString(m.GetId()) {
+		err := UpdateCustomerRequestValidationError{
+			field:  "Id",
+			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.UserName != nil {
+
+		if m.GetUserName() != "" {
+
+			if l := utf8.RuneCountInString(m.GetUserName()); l < 3 || l > 50 {
+				err := UpdateCustomerRequestValidationError{
+					field:  "UserName",
+					reason: "value length must be between 3 and 50 runes, inclusive",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_UpdateCustomerRequest_UserName_Pattern.MatchString(m.GetUserName()) {
+				err := UpdateCustomerRequestValidationError{
+					field:  "UserName",
+					reason: "value does not match regex pattern \"^[a-zA-Z0-9_]+$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if m.FullName != nil {
+
+		if m.GetFullName() != "" {
+
+			if utf8.RuneCountInString(m.GetFullName()) > 100 {
+				err := UpdateCustomerRequestValidationError{
+					field:  "FullName",
+					reason: "value length must be at most 100 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if m.City != nil {
+
+		if m.GetCity() != "" {
+
+			if utf8.RuneCountInString(m.GetCity()) > 100 {
+				err := UpdateCustomerRequestValidationError{
+					field:  "City",
+					reason: "value length must be at most 100 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if m.BirthDate != nil {
+
+		if m.GetBirthDate() != "" {
+
+			if !_UpdateCustomerRequest_BirthDate_Pattern.MatchString(m.GetBirthDate()) {
+				err := UpdateCustomerRequestValidationError{
+					field:  "BirthDate",
+					reason: "value does not match regex pattern \"^[0-9]{4}-[0-9]{2}-[0-9]{2}$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpdateCustomerRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateCustomerRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdateCustomerRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateCustomerRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateCustomerRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateCustomerRequestMultiError) AllErrors() []error { return m }
+
+// UpdateCustomerRequestValidationError is the validation error returned by
+// UpdateCustomerRequest.Validate if the designated constraints aren't met.
+type UpdateCustomerRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateCustomerRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateCustomerRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateCustomerRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateCustomerRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateCustomerRequestValidationError) ErrorName() string {
+	return "UpdateCustomerRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateCustomerRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateCustomerRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateCustomerRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateCustomerRequestValidationError{}
+
+var _UpdateCustomerRequest_Id_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+
+var _UpdateCustomerRequest_UserName_Pattern = regexp.MustCompile("^[a-zA-Z0-9_]+$")
+
+var _UpdateCustomerRequest_BirthDate_Pattern = regexp.MustCompile("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
+
+// Validate checks the field values on UpdateCustomerResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateCustomerResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateCustomerResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateCustomerResponseMultiError, or nil if none found.
+func (m *UpdateCustomerResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateCustomerResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCustomer()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateCustomerResponseValidationError{
+					field:  "Customer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateCustomerResponseValidationError{
+					field:  "Customer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCustomer()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateCustomerResponseValidationError{
+				field:  "Customer",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateCustomerResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateCustomerResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdateCustomerResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateCustomerResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateCustomerResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateCustomerResponseMultiError) AllErrors() []error { return m }
+
+// UpdateCustomerResponseValidationError is the validation error returned by
+// UpdateCustomerResponse.Validate if the designated constraints aren't met.
+type UpdateCustomerResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateCustomerResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateCustomerResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateCustomerResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateCustomerResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateCustomerResponseValidationError) ErrorName() string {
+	return "UpdateCustomerResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateCustomerResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateCustomerResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateCustomerResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateCustomerResponseValidationError{}
