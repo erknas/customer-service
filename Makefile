@@ -21,7 +21,9 @@ proto:
 		--validate_out="lang=go,paths=source_relative:pkg" \
   		api/customer/customer.proto
 
+infra:
+	@docker compose up -d
 exec:
-	docker exec -it customer-service_db psql -U root -d customers
+	@docker exec -it customer-service_db psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
 
 .PHONY: proto
